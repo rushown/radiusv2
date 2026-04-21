@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-chocolate-900 text-chocolate-100 font-body antialiased;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(93,64,55,0.25) 0%, transparent 60%);
+  }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-gold-500/70 ring-offset-2 ring-offset-chocolate-900;
+  }
+
+  ::selection {
+    @apply bg-gold-500/30 text-chocolate-50;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-chocolate-900;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-chocolate-600 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-chocolate-500;
+  }
+}
+
+@layer utilities {
+  .animate-slide-up {
+    animation: slideUp 0.35s ease forwards;
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease forwards;
+  }
+}

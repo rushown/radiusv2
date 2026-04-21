@@ -1,0 +1,48 @@
+# ─── Environment / Secrets ───────────────────────────────────────────────────
+.env
+.env.local
+.env.production
+*.env
+
+# NEVER commit private keys
+*.pem
+*.key
+keystore/
+wallet.json
+
+# ─── Node ────────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ─── Foundry ─────────────────────────────────────────────────────────────────
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+# Keep lib tracked so deps are reproducible (or use git submodules)
+# contracts/lib/
+
+# ─── Database ────────────────────────────────────────────────────────────────
+backend/data/
+*.db
+*.db-shm
+*.db-wal
+
+# ─── Logs ────────────────────────────────────────────────────────────────────
+logs/
+*.log
+
+# ─── Build output ─────────────────────────────────────────────────────────────
+dist/
+build/
+.next/
+
+# ─── OS ──────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── IDE ─────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp

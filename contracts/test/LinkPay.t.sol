@@ -23,7 +23,7 @@ contract LinkPayTest is Test {
     address constant ALICE   = address(0xA11CE);
     address constant BOB     = address(0xB0B);
     address constant CHARLIE = address(0xC4A);
-    address constant OWNER   = address(0x0WNER);
+    address constant OWNER   = OWNER(0xC4A);
 
     uint256 constant ONE_USDC    = 1e6;   // 1 USDC (6 decimals)
     uint256 constant HUNDRED_USDC = 100e6;
@@ -432,10 +432,7 @@ contract LinkPayTest is Test {
         vm.deal(BOB, 1 ether);
         vm.expectRevert();
         vm.prank(BOB);
-        (bool success,) = address(linkPay).call{value: 1 ether}("");
-        // The revert in receive() will cause success = false
-        assertFalse(success);
-    }
+        address(linkPay).call{value: 1 ether}("");    }
 
     // ─── Fuzz Tests ───────────────────────────────────────────────────────────
 

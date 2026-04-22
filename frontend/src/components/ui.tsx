@@ -323,8 +323,4 @@ export function TxStatusBar({
   );
 }
 
-function clsx(...classes: (string | boolean | undefined | null)[]) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export { clsx };

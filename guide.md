@@ -73,8 +73,8 @@ You need at minimum:
 cd contracts
 
 # Install OpenZeppelin v5 and forge-std
-forge install OpenZeppelin/openzeppelin-contracts@v5.1.0 --no-commit
-forge install foundry-rs/forge-std --no-commit
+forge install OpenZeppelin/openzeppelin-contracts@v5.1.0 
+forge install foundry-rs/forge-std 
 
 # Verify it builds cleanly
 forge build

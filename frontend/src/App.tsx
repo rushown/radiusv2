@@ -12,24 +12,31 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 2, staleTime: 10_000 } },
 });
 
+function NotFound() {
+  return (
+    <main className="page-wrapper min-h-screen flex items-center justify-center px-4">
+      <div className="text-center">
+        <p className="font-display text-8xl font-bold text-choc-800 mb-4 select-none">404</p>
+        <h1 className="font-display text-2xl font-semibold text-choc-300 mb-2">Page not found</h1>
+        <p className="font-body text-choc-500 text-sm">The page you're looking for doesn't exist.</p>
+      </div>
+    </main>
+  );
+}
+
 export default function App() {
   return (
     <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <div className="min-h-screen bg-chocolate-900 text-chocolate-100">
-            <Navbar />
+          <div className="min-h-screen bg-choc-900 text-choc-100">
+            <Navbar/>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/create" element={<CreateClaim />} />
-              <Route path="/claim/:claimId/:secret" element={<Claim />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="*" element={
-                <main className="min-h-screen pt-32 px-4 text-center">
-                  <h1 className="font-display text-4xl font-bold text-chocolate-50 mb-4">404</h1>
-                  <p className="font-body text-chocolate-400">Page not found.</p>
-                </main>
-              } />
+              <Route path="/" element={<Home/>}/>
+              <Route path="/create" element={<CreateClaim/>}/>
+              <Route path="/claim/:claimId/:secret" element={<Claim/>}/>
+              <Route path="/dashboard" element={<Dashboard/>}/>
+              <Route path="*" element={<NotFound/>}/>
             </Routes>
           </div>
         </BrowserRouter>

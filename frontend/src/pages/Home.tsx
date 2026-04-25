@@ -1,207 +1,158 @@
 import { Link } from "react-router-dom";
 import { useAccount } from "wagmi";
-import { Button, Card } from "@/components/ui";
+import { Card } from "@/components/ui";
 
 const features = [
-  {
-    icon: "🔐",
-    title: "Zero-Knowledge Links",
-    desc: "The secret is embedded in the URL only. We never store it. Only the holder of the link can claim the funds.",
-  },
-  {
-    icon: "⛓",
-    title: "On-Chain Settlement",
-    desc: "Funds are locked in a non-custodial smart contract on Arc testnet. No intermediaries, no trust required.",
-  },
-  {
-    icon: "⏱",
-    title: "Auto-Expiry",
-    desc: "Links expire after a configurable period. Unclaimed funds can be reclaimed by the sender.",
-  },
-  {
-    icon: "🛡",
-    title: "Front-Running Proof",
-    desc: "The claim mechanism uses a commit-reveal scheme—miners cannot steal funds from a pending transaction.",
-  },
+  { icon: "⬡", title: "Zero-Knowledge Links", desc: "The secret lives only in the URL. We never store it. Only the link holder can claim." },
+  { icon: "⛓", title: "Non-Custodial", desc: "Funds lock in an audited smart contract on Arc. No intermediaries. No trust required." },
+  { icon: "⏱", title: "Auto-Expiry", desc: "Configurable expiry windows. Unclaimed funds auto-return to the sender after expiry." },
+  { icon: "🛡", title: "Front-Running Proof", desc: "Commit-reveal scheme ensures miners cannot intercept or steal a pending claim." },
 ];
 
 const steps = [
-  {
-    num: "01",
-    title: "Lock USDC",
-    desc: "Approve the contract to spend your USDC, set an amount and expiry, and lock funds on-chain.",
-  },
-  {
-    num: "02",
-    title: "Share the Link",
-    desc: "Copy the generated claim URL. Send it to your recipient through any channel you trust.",
-  },
-  {
-    num: "03",
-    title: "Claim Funds",
-    desc: "The recipient opens the link, connects their wallet, and receives the USDC in one transaction.",
-  },
+  { n: "01", title: "Lock USDC", desc: "Approve the contract to hold your USDC, set amount and expiry date." },
+  { n: "02", title: "Share Link", desc: "Copy the generated claim URL. Send to your recipient via any channel." },
+  { n: "03", title: "Recipient Claims", desc: "They open the link, connect wallet, receive USDC in a single transaction." },
 ];
 
 export default function Home() {
   const { isConnected } = useAccount();
 
   return (
-    <main className="min-h-screen">
-      {/* Hero */}
-      <section className="relative pt-32 pb-24 px-4 overflow-hidden" aria-labelledby="hero-heading">
-        {/* Background orbs */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          aria-hidden="true"
-        >
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-gold-500/5 rounded-full blur-3xl" />
-          <div className="absolute top-1/3 right-0 w-80 h-80 bg-chocolate-600/20 rounded-full blur-3xl" />
+    <main className="page-wrapper">
+      {/* ── Hero ── */}
+      <section className="relative min-h-screen flex flex-col items-center justify-center px-4 pt-16 pb-24 overflow-hidden" aria-labelledby="hero-heading">
+        {/* Background layers */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-b from-gold-500/6 to-transparent rounded-[50%] blur-3xl"/>
+          <div className="absolute top-1/3 -left-64 w-[500px] h-[500px] bg-choc-700/20 rounded-full blur-3xl animate-float" style={{ animationDelay: "0s" }}/>
+          <div className="absolute top-1/4 -right-48 w-[400px] h-[400px] bg-choc-600/15 rounded-full blur-3xl animate-float" style={{ animationDelay: "3s" }}/>
+          {/* Decorative grid */}
+          <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "linear-gradient(rgba(240,170,0,1) 1px, transparent 1px), linear-gradient(90deg, rgba(240,170,0,1) 1px, transparent 1px)", backgroundSize: "80px 80px" }}/>
         </div>
 
-        <div className="relative max-w-3xl mx-auto text-center animate-fade-in">
-          <div className="inline-flex items-center gap-2 bg-gold-500/10 border border-gold-600/30 rounded-full px-4 py-1.5 mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" aria-hidden="true" />
-            <span className="text-gold-400 text-xs font-body font-medium tracking-wide uppercase">
-              Arc Testnet · USDC Payments
+        <div className="relative max-w-4xl mx-auto text-center" style={{ animation: "fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) forwards" }}>
+          {/* Eyebrow */}
+          <div className="inline-flex items-center gap-2.5 bg-choc-800/80 border border-choc-700/60 rounded-full px-4 py-2 mb-8">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-60"/>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-gold-400"/>
             </span>
+            <span className="font-body text-xs font-medium text-choc-300 tracking-wider uppercase">Arc Testnet · USDC Payments · Non-Custodial</span>
           </div>
 
-          <h1
-            id="hero-heading"
-            className="font-display text-5xl sm:text-6xl font-bold text-chocolate-50 leading-tight mb-6"
-          >
-            Send USDC via{" "}
-            <span className="text-gold-400 italic">one-time links</span>
+          {/* Headline */}
+          <h1 id="hero-heading" className="font-display font-bold leading-[1.05] mb-6">
+            <span className="block text-5xl sm:text-6xl lg:text-7xl text-choc-50 mb-2">Send USDC via</span>
+            <span className="block text-5xl sm:text-6xl lg:text-7xl text-gradient-gold italic">one-time links</span>
           </h1>
 
-          <p className="font-body text-lg text-chocolate-300 max-w-xl mx-auto mb-10 leading-relaxed">
-            Lock funds in a smart contract, generate a claim link, and share it
-            with anyone. No wallet address needed upfront. Funds claimed once,
-            securely.
+          <p className="font-body text-lg sm:text-xl text-choc-400 max-w-2xl mx-auto mb-12 leading-relaxed">
+            Lock funds in a smart contract, generate a secure claim link, share it with anyone.{" "}
+            <span className="text-choc-300">No wallet address needed upfront.</span>
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link to="/create">
-              <Button variant="primary" size="lg" aria-label="Create a new claim link">
+              <button className="btn-primary px-8 py-4 text-base rounded-2xl">
                 Create a Claim Link
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                 </svg>
-              </Button>
+              </button>
             </Link>
             {isConnected && (
               <Link to="/dashboard">
-                <Button variant="ghost" size="lg" aria-label="View your dashboard">
-                  View Dashboard
-                </Button>
+                <button className="btn-ghost px-8 py-4 text-base rounded-2xl">View Dashboard</button>
               </Link>
             )}
           </div>
+
+          {/* Floating stat pills */}
+          <div className="flex flex-wrap justify-center gap-4 mt-16">
+            {[
+              { label: "Chain", value: "Arc Testnet" },
+              { label: "Gas token", value: "USDC" },
+              { label: "Claim type", value: "One-time" },
+              { label: "Custodian", value: "None" },
+            ].map(({ label, value }) => (
+              <div key={label} className="flex items-center gap-2 bg-choc-800/60 border border-choc-700/40 rounded-xl px-4 py-2.5">
+                <span className="section-label">{label}</span>
+                <span className="font-body text-xs font-semibold text-choc-200">{value}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* How it works */}
-      <section className="py-20 px-4" aria-labelledby="how-it-works-heading">
+      {/* ── How it works ── */}
+      <section className="py-24 px-4" aria-labelledby="how-heading">
         <div className="max-w-5xl mx-auto">
-          <h2
-            id="how-it-works-heading"
-            className="font-display text-3xl font-bold text-chocolate-50 text-center mb-4"
-          >
-            How it works
-          </h2>
-          <p className="font-body text-chocolate-400 text-center mb-14 max-w-lg mx-auto">
-            Three steps from sending to receiving. No accounts. No KYC.
-          </p>
+          <div className="text-center mb-16">
+            <p className="section-label mb-3">Process</p>
+            <h2 id="how-heading" className="font-display text-4xl font-bold text-choc-50">Three steps, start to finish</h2>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {steps.map((step, i) => (
-              <Card
-                key={i}
-                className="relative p-6 overflow-hidden animate-slide-up"
-                style={{ animationDelay: `${i * 100}ms` } as React.CSSProperties}
+              <div key={i} className="card p-6 relative overflow-hidden group hover:border-choc-600/80 transition-all duration-300"
+                style={{ animation: `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${i * 120}ms forwards`, opacity: 0 }}
               >
-                <div
-                  className="absolute top-4 right-4 font-display text-5xl font-bold text-chocolate-600/50 select-none"
-                  aria-hidden="true"
-                >
-                  {step.num}
+                <div className="absolute -top-4 -right-2 font-display text-7xl font-bold text-choc-750 select-none pointer-events-none group-hover:text-choc-700 transition-colors duration-300">
+                  {step.n}
                 </div>
                 <div className="relative">
-                  <div className="w-8 h-8 rounded-full bg-gold-500 flex items-center justify-center text-chocolate-900 font-display font-bold text-sm mb-4 shadow-gold-sm">
-                    {i + 1}
+                  <div className="w-9 h-9 rounded-xl bg-gold-500 flex items-center justify-center mb-5 shadow-gold-sm">
+                    <span className="font-display font-bold text-choc-950 text-sm">{i + 1}</span>
                   </div>
-                  <h3 className="font-display text-lg font-semibold text-chocolate-50 mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="font-body text-sm text-chocolate-400 leading-relaxed">
-                    {step.desc}
-                  </p>
+                  <h3 className="font-display text-xl font-semibold text-choc-50 mb-2">{step.title}</h3>
+                  <p className="font-body text-sm text-choc-400 leading-relaxed">{step.desc}</p>
                 </div>
-              </Card>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features */}
-      <section className="py-20 px-4 border-t border-chocolate-700/50" aria-labelledby="features-heading">
+      {/* ── Features ── */}
+      <section className="py-24 px-4 border-t border-choc-800/80" aria-labelledby="features-heading">
         <div className="max-w-5xl mx-auto">
-          <h2
-            id="features-heading"
-            className="font-display text-3xl font-bold text-chocolate-50 text-center mb-14"
-          >
-            Built with security first
-          </h2>
+          <div className="text-center mb-16">
+            <p className="section-label mb-3">Security</p>
+            <h2 id="features-heading" className="font-display text-4xl font-bold text-choc-50">Built with security first</h2>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {features.map((f, i) => (
-              <Card key={i} className="p-6 flex gap-4">
-                <div
-                  className="text-2xl shrink-0 mt-0.5"
-                  aria-hidden="true"
-                >
+              <div key={i} className="card p-6 flex gap-4 hover:border-choc-600/80 group transition-all duration-300"
+                style={{ animation: `fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) ${i * 80}ms forwards`, opacity: 0 }}
+              >
+                <div className="w-10 h-10 shrink-0 rounded-xl bg-choc-750 border border-choc-700/50 flex items-center justify-center text-lg group-hover:border-gold-700/30 transition-colors">
                   {f.icon}
                 </div>
                 <div>
-                  <h3 className="font-body font-semibold text-chocolate-100 mb-1">
-                    {f.title}
-                  </h3>
-                  <p className="font-body text-sm text-chocolate-400 leading-relaxed">
-                    {f.desc}
-                  </p>
+                  <h3 className="font-body font-semibold text-choc-100 mb-1.5">{f.title}</h3>
+                  <p className="font-body text-sm text-choc-400 leading-relaxed">{f.desc}</p>
                 </div>
-              </Card>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Chain info banner */}
-      <section className="py-12 px-4" aria-labelledby="chain-info-heading">
+      {/* ── Chain banner ── */}
+      <section className="py-20 px-4">
         <div className="max-w-2xl mx-auto">
-          <Card className="p-6 text-center" glow>
-            <p className="font-body text-xs text-chocolate-400 uppercase tracking-wider mb-2">
-              Deployed on
-            </p>
-            <h2
-              id="chain-info-heading"
-              className="font-display text-xl font-bold text-gold-400 mb-1"
-            >
-              Arc Testnet
-            </h2>
-            <p className="font-mono text-xs text-chocolate-400">
-              Chain ID: 5042002 · Gas token: USDC
-            </p>
-            <a
-              href="https://faucet.circle.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-1.5 text-sm font-body text-gold-500 hover:text-gold-400 underline"
+          <div className="card-glow p-8 text-center">
+            <p className="section-label mb-3">Deployed on</p>
+            <h2 className="font-display text-3xl font-bold text-gradient-gold mb-2">Arc Testnet</h2>
+            <p className="font-mono text-xs text-choc-500 mb-6">Chain ID: 5042002 · RPC: rpc.testnet.arc.network</p>
+            <a href="https://faucet.circle.com" target="_blank" rel="noopener noreferrer"
+              className="btn-secondary px-6 py-2.5 text-sm rounded-xl inline-flex"
             >
               Get testnet USDC from faucet ↗
             </a>
-          </Card>
+          </div>
         </div>
       </section>
     </main>

@@ -3,43 +3,173 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
 
   body {
-    @apply bg-chocolate-900 text-chocolate-100 font-body antialiased;
-    background-image:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(93,64,55,0.25) 0%, transparent 60%);
+    @apply bg-choc-900 text-choc-100 font-body antialiased;
+    background-image: var(--tw-bg-page-bg, none);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  *:focus-visible {
-    @apply outline-none ring-2 ring-gold-500/70 ring-offset-2 ring-offset-chocolate-900;
+  ::selection { @apply bg-gold-500/25 text-choc-50; }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-gold-500/60 ring-offset-2 ring-offset-choc-900;
   }
 
-  ::selection {
-    @apply bg-gold-500/30 text-chocolate-50;
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { @apply bg-choc-900; }
+  ::-webkit-scrollbar-thumb { @apply bg-choc-600 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-choc-500; }
+}
+
+@layer components {
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0)    0%,
+      rgba(255,255,255,0.04) 40%,
+      rgba(255,255,255,0.08) 50%,
+      rgba(255,255,255,0.04) 60%,
+      rgba(255,255,255,0)    100%
+    );
+    background-size: 600px 100%;
+    animation: shimmer 1.8s linear infinite;
   }
 
-  ::-webkit-scrollbar {
-    width: 6px;
+  .skeleton {
+    @apply bg-choc-750 rounded-lg overflow-hidden relative;
   }
-  ::-webkit-scrollbar-track {
-    @apply bg-chocolate-900;
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255,255,255,0.04) 40%,
+      rgba(255,255,255,0.08) 50%,
+      rgba(255,255,255,0.04) 60%,
+      transparent 100%
+    );
+    background-size: 600px 100%;
+    animation: shimmer 1.8s linear infinite;
   }
-  ::-webkit-scrollbar-thumb {
-    @apply bg-chocolate-600 rounded-full;
+
+  .card {
+    @apply bg-choc-800 border border-choc-700/60 rounded-2xl shadow-card;
+    background-image: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
   }
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-chocolate-500;
+  .card:hover { @apply shadow-card-hover; }
+
+  .card-glow {
+    @apply card border-gold-700/30 shadow-gold-sm;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 font-body font-medium rounded-xl
+           bg-gold-500 text-choc-950 hover:bg-gold-400 active:bg-gold-600
+           transition-all duration-200 shadow-gold-sm hover:shadow-gold-md
+           focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 focus-visible:ring-offset-choc-900
+           disabled:opacity-40 disabled:cursor-not-allowed select-none;
+    animation: pulseGold 2.4s ease-in-out infinite;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 font-body font-medium rounded-xl
+           bg-choc-750 text-choc-100 border border-choc-600 hover:bg-choc-700 hover:border-choc-500
+           transition-all duration-200
+           focus-visible:ring-2 focus-visible:ring-gold-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-choc-900
+           disabled:opacity-40 disabled:cursor-not-allowed select-none;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 font-body font-medium rounded-xl
+           bg-transparent text-choc-300 border border-choc-600 hover:bg-choc-750 hover:text-choc-100 hover:border-choc-500
+           transition-all duration-200
+           focus-visible:ring-2 focus-visible:ring-gold-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-choc-900
+           disabled:opacity-40 disabled:cursor-not-allowed select-none;
+  }
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 font-body font-medium rounded-xl
+           bg-ember-600/20 text-ember-400 border border-ember-600/40 hover:bg-ember-600/30
+           transition-all duration-200
+           disabled:opacity-40 disabled:cursor-not-allowed select-none;
+  }
+
+  .input-field {
+    @apply w-full bg-choc-850 border border-choc-600 rounded-xl px-4 py-3
+           text-choc-50 font-body text-sm placeholder-choc-500
+           focus:outline-none focus:ring-2 focus:ring-gold-500/40 focus:border-gold-600/60
+           hover:border-choc-500 transition-colors duration-150;
+  }
+
+  .badge-pending  { @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-body font-medium bg-gold-500/12 text-gold-400 border border-gold-600/25; }
+  .badge-claimed  { @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-body font-medium bg-jade-500/12 text-jade-400 border border-jade-600/25; }
+  .badge-expired  { @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-body font-medium bg-ember-500/12 text-ember-400 border border-ember-600/25; }
+  .badge-reclaimed{ @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-body font-medium bg-choc-600/40 text-choc-300 border border-choc-500/25; }
+
+  .page-wrapper {
+    @apply min-h-screen;
+    background-image: radial-gradient(ellipse 100% 55% at 50% -5%, rgba(74,44,35,0.55) 0%, transparent 65%);
+  }
+
+  .section-label {
+    @apply font-body text-xs font-medium tracking-widest uppercase text-choc-400;
   }
 }
 
 @layer utilities {
-  .animate-slide-up {
-    animation: slideUp 0.35s ease forwards;
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #f5c030 0%, #f0aa00 50%, #d49800 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
-  .animate-fade-in {
-    animation: fadeIn 0.4s ease forwards;
+
+  .border-gradient {
+    border-image: linear-gradient(135deg, rgba(240,170,0,0.4), transparent) 1;
   }
+
+  .glass {
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position:  600px 0; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulseGold {
+  0%,100% { box-shadow: 0 0 0 0 rgba(240,170,0,0.25); }
+  50%     { box-shadow: 0 0 0 10px rgba(240,170,0,0); }
+}
+@keyframes glowPulse {
+  0%,100% { opacity: 0.4; }
+  50%     { opacity: 0.9; }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-10px); }
 }

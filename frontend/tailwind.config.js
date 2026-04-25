@@ -40,7 +40,7 @@ export default {
           50:  "#f8fafc",
         },
         success: { 500: "#22c55e", 400: "#4ade80", 300: "#86efac" },
-        danger:  { 600: "#dc2626", 500: "#ef4444", 400: "#f87171" },
+        danger:  { 600: "#dc2626", 500: "#ef4444", 400: "#f87171", 300: "#fca5a5" },
         warn:    { 500: "#f59e0b", 400: "#fbbf24", 300: "#fcd34d" },
       },
       fontFamily: {

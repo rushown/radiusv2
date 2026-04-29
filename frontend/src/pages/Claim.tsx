@@ -12,7 +12,7 @@ export default function Claim() {
   const { claimId: rawId, secret: rawSecret } = useParams<{ claimId: string; secret: string }>();
   const { address, isConnected } = useAccount();
   const [connectOpen, setConnectOpen] = useState(false);
-  const { claimFunds, status, error: txError, txHash, reset } = useClaimFunds();
+  const { claimFunds, status, error: txError, txHash } = useClaimFunds();
 
   const [parsed, setParsed] = useState<{ claimId: `0x${string}`; secret: `0x${string}` } | null>(null);
   const [parseError, setParseError] = useState<string | null>(null);

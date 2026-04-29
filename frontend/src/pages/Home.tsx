@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useAccount } from "wagmi";
-import { Card } from "@/components/ui";
 
 const features = [
   { icon: "⬡", title: "Zero-Knowledge Links", desc: "The secret lives only in the URL. We never store it. Only the link holder can claim." },

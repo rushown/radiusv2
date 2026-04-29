@@ -1,7 +1,6 @@
 import { useState, useCallback } from "react";
 import {
   useWriteContract,
-  useWaitForTransactionReceipt,
   useReadContract,
   usePublicClient,
 } from "wagmi";

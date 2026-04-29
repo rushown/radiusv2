@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
-import { useAccount, useConnect } from "wagmi";
-import { Button, Card, Input, TxStatusBar } from "@/components/ui";
+import { useAccount} from "wagmi";
+import { Button, Input, TxStatusBar } from "@/components/ui";
 import { useCreateClaim } from "@/hooks/useClaim";
 import { useUsdcBalance } from "@/hooks/useUsdcBalance";
 import { WalletConnectModal } from "@/components/WalletConnectModal";

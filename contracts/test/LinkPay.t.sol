@@ -23,7 +23,7 @@ contract LinkPayTest is Test {
     address constant ALICE   = address(0xA11CE);
     address constant BOB     = address(0xB0B);
     address constant CHARLIE = address(0xC4A);
-    address constant OWNER   = OWNER(0xC4A);
+    address constant OWNER = address(0x0EEEE);
 
     uint256 constant ONE_USDC    = 1e6;   // 1 USDC (6 decimals)
     uint256 constant HUNDRED_USDC = 100e6;

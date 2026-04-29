@@ -99,23 +99,16 @@ export function WalletConnectModal({ open, onClose }: WalletConnectModalProps) {
   if (!open) return null;
 
   return (
-    <>
-      <div className="fixed inset-0 z-50 bg-choc-950/75 glass animate-fade-in" onClick={onClose} aria-hidden="true"/>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-choc-950/75 glass animate-fade-in" onClick={onClose} aria-hidden="true"/>
 
       <div
         role="dialog" aria-modal="true" aria-labelledby="wc-title"
-        className="fixed z-50 bottom-0 inset-x-0 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2
-                   w-full sm:w-[400px] sm:max-w-[calc(100vw-2rem)]
-                   bg-choc-850 border-t sm:border border-choc-700/60 rounded-t-3xl sm:rounded-2xl
-                   shadow-modal overflow-hidden animate-slide-up sm:animate-scale-in"
+        className="relative z-10 w-full max-w-[400px] max-h-[calc(100dvh-2rem)] flex flex-col
+                   bg-choc-850 border border-choc-700/60 rounded-2xl
+                   shadow-modal overflow-hidden animate-scale-in"
       >
-        {/* Drag handle */}
-        <div className="sm:hidden flex justify-center pt-3.5 pb-1" aria-hidden="true">
-          <div className="w-9 h-[3px] rounded-full bg-choc-600"/>
-        </div>
-
-        {/* Header */}
-        <div className="flex items-start justify-between px-5 pt-4 pb-4 sm:pt-5">
+        <div className="flex items-start justify-between px-5 pt-5 pb-4 shrink-0">
           <div>
             <h2 id="wc-title" className="font-display text-xl font-semibold text-choc-50 tracking-wide">Connect Wallet</h2>
             <p className="font-body text-xs text-choc-400 mt-0.5">Select a wallet to connect to Radius Pay</p>
@@ -130,8 +123,7 @@ export function WalletConnectModal({ open, onClose }: WalletConnectModalProps) {
           </button>
         </div>
 
-        {/* Network pill */}
-        <div className="mx-5 mb-4 flex items-center gap-3 bg-choc-900/60 border border-choc-700/40 rounded-xl px-3.5 py-2.5">
+        <div className="mx-5 mb-4 flex items-center gap-3 bg-choc-900/60 border border-choc-700/40 rounded-xl px-3.5 py-2.5 shrink-0">
           <div className="relative shrink-0">
             <span className="w-2.5 h-2.5 rounded-full bg-gold-500 block"/>
             <span className="absolute inset-0 rounded-full bg-gold-500 animate-ping opacity-50"/>
@@ -143,8 +135,7 @@ export function WalletConnectModal({ open, onClose }: WalletConnectModalProps) {
           <span className="text-[10px] font-body text-jade-400 bg-jade-500/10 border border-jade-600/20 px-2 py-0.5 rounded-full">Testnet</span>
         </div>
 
-        {/* Wallet list */}
-        <div className="px-5 pb-4 flex flex-col gap-2">
+        <div className="px-5 pb-4 flex flex-col gap-2 overflow-y-auto">
           {unique.length === 0 ? (
             <div className="py-10 text-center">
               <div className="text-3xl mb-3" aria-hidden="true">🦊</div>
@@ -172,7 +163,7 @@ export function WalletConnectModal({ open, onClose }: WalletConnectModalProps) {
                   <div className="flex items-center gap-2">
                     <span className="font-body font-semibold text-sm text-choc-50">{c.name}</span>
                     {tag && (
-                      <span className="px-1.5 py-0.5 rounded-md text-[10px] font-body font-medium bg-gold-500/12 text-gold-400 border border-gold-600/25">
+                      <span className="px-1.5 py-0.5 rounded-md text-[10px] font-body font-medium bg-gold-500/10 text-gold-400 border border-gold-600/25">
                         {tag}
                       </span>
                     )}
@@ -196,22 +187,20 @@ export function WalletConnectModal({ open, onClose }: WalletConnectModalProps) {
           })}
         </div>
 
-        {/* Error */}
         {error && (
-          <div className="mx-5 mb-4 px-4 py-3 bg-ember-600/10 border border-ember-600/30 rounded-xl">
+          <div className="mx-5 mb-4 px-4 py-3 bg-ember-600/10 border border-ember-600/30 rounded-xl shrink-0">
             <p className="font-body text-xs text-ember-400">
               {error.message.toLowerCase().includes("reject") ? "Connection rejected. Please try again." : error.message.slice(0, 100)}
             </p>
           </div>
         )}
 
-        {/* Footer */}
-        <div className="px-5 pb-5">
+        <div className="px-5 pb-5 shrink-0">
           <p className="font-body text-[11px] text-choc-600 text-center leading-relaxed">
             Your wallet stays in your custody. Radius Pay never stores private keys.
           </p>
         </div>
       </div>
-    </>
+    </div>
   );
 }

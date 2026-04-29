@@ -1,7 +1,6 @@
 import { http, createConfig } from "wagmi";
 import { injected, metaMask } from "wagmi/connectors";
 import { defineChain } from "viem";
-/// <reference types="vite/client" />
 
 export const arcTestnet = defineChain({
   id: 5042002,

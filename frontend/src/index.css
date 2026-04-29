@@ -105,9 +105,9 @@
            hover:border-choc-500 transition-colors duration-150;
   }
 
-  .badge-pending  { @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-body font-medium bg-gold-500/12 text-gold-400 border border-gold-600/25; }
-  .badge-claimed  { @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-body font-medium bg-jade-500/12 text-jade-400 border border-jade-600/25; }
-  .badge-expired  { @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-body font-medium bg-ember-500/12 text-ember-400 border border-ember-600/25; }
+  .badge-pending  { @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-body font-medium bg-gold-500/10 text-gold-400 border border-gold-600/25; }
+  .badge-claimed  { @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-body font-medium bg-jade-500/10 text-jade-400 border border-jade-600/25; }
+  .badge-expired  { @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-body font-medium bg-ember-500/10 text-ember-400 border border-ember-600/25; }
   .badge-reclaimed{ @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-body font-medium bg-choc-600/40 text-choc-300 border border-choc-500/25; }
 
   .page-wrapper {
